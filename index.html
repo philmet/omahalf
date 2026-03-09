@@ -87,12 +87,23 @@
 
     /* Navigation */
     nav {
-      position: absolute;
-      top: 2.5rem;
-      left: 4rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
       display: flex;
       align-items: center;
       gap: 2.5rem;
+      padding: 1.5rem 4rem;
+      transition: background 0.3s, backdrop-filter 0.3s, padding 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(13, 32, 48, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1rem 4rem;
+      border-bottom: 1px solid rgba(95,168,152,0.1);
     }
     .nav-logo {
       font-family: 'Playfair Display', serif;
@@ -119,6 +130,13 @@
 
     /* Hero text */
     .hero-content { position: relative; z-index: 2; }
+    .hero-date {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      color: var(--seafoam);
+      margin-bottom: 1.8rem;
+      animation: fadeUp 1s 0.5s both;
+    }
     .hero-eyebrow {
       font-family: 'DM Mono', monospace;
       font-size: 0.72rem;
@@ -204,7 +222,42 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── SECTION BASE ── */
+    /* ── COUNTDOWN ── */
+    .countdown {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 1s 0.7s both;
+    }
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .countdown-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--sand);
+      line-height: 1;
+      min-width: 2ch;
+      text-align: center;
+    }
+    .countdown-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--mist);
+      text-transform: uppercase;
+    }
+    .countdown-sep {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: rgba(95,168,152,0.4);
+      line-height: 1;
+      padding-top: 0.2rem;
+    }
     section { padding: 7rem 4rem; }
 
     .section-label {
@@ -581,7 +634,8 @@
     }
     @media (max-width: 900px) {
       section { padding: 5rem 2rem; }
-      nav { left: 2rem; top: 1.5rem; }
+      nav { padding: 1.2rem 2rem; }
+      nav.scrolled { padding: 0.8rem 2rem; }
       nav .nav-links { display: none; }
       .hero { padding: 2rem; }
       .hero-title { font-size: clamp(4rem, 18vw, 7rem); }
@@ -630,12 +684,34 @@
     </ul>
   </nav>
 
-  <div class="distance-tag">21.1 KM — SUNDAY 7 JUNE 2025</div>
+  <div class="distance-tag">21.1 KM — SUNDAY 7 JUNE 2026</div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">Sunday 7 June 2025 · Omaha Beach → Matakana Village · New Zealand</p>
+    <p class="hero-eyebrow">Omaha Beach → Matakana Village · New Zealand</p>
+    <p class="hero-date">Sunday 7 June 2026</p>
     <h1 class="hero-title">Oma<em>half</em></h1>
     <p class="hero-subtitle">An unofficial half marathon.</p>
+    <div class="countdown" id="countdown">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-days">--</span>
+        <span class="countdown-label">Days</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-hours">--</span>
+        <span class="countdown-label">Hours</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-mins">--</span>
+        <span class="countdown-label">Mins</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-secs">--</span>
+        <span class="countdown-label">Secs</span>
+      </div>
+    </div>
     <a href="#register" class="hero-cta">I'm in <span class="arrow">→</span></a>
   </div>
 
@@ -788,8 +864,8 @@
 <!-- ── REGISTER ── -->
 <section class="register" id="register">
   <p class="section-label">Come along</p>
-  <h2 class="section-title">Put your name down for <em>Omahalf</em></h2>
-  <p class="section-body">No entry fee, no race bib, no timing chip. Just let us know you're coming so we have a rough headcount. The more the merrier — seriously, bring friends.</p>
+  <h2 class="section-title">Register your <em>interest</em></h2>
+  <p class="section-body">Let us know via the form below if you'd like to be a part of Omahalf 2026. We'll email updates in the lead up to the day.</p>
   <form class="register-form" action="https://formspree.io/f/xkoqoogd" method="POST" id="register-form">
     <div class="form-row">
       <div class="form-group">
@@ -817,13 +893,12 @@
 <section class="faq" id="faq">
   <div>
     <p class="section-label">Reasonable questions</p>
-    <h2 class="section-title">Yes, it's really <em>free</em></h2>
-    <p class="section-body">Still unsure? Email us at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92faf7fefefdd2fdfff3faf3fef4bcfce8">[email&#160;protected]</a> and we'll try to help.</p>
+    <h2 class="section-title">We're just <em>giving this a go</em></h2>
   </div>
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q">When is it?</div>
-      <div class="faq-a">Sunday 7 June 2025. Morning start — exact time TBC, but we'll let everyone know once they've signed up. Fingers crossed for good weather.</div>
+      <div class="faq-a">Sunday 7 June 2026. Sunday morning start — exact time TBC, but we'll let everyone know once they've signed up. Fingers crossed for good weather.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Where does it start and finish?</div>
@@ -831,7 +906,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Is there actually an entry fee?</div>
-      <div class="faq-a">Nope. This isn't a real race. There's no timing, no medals, no chip, no official anything. Just let us know you're coming so we have a rough idea of numbers.</div>
+      <div class="faq-a">We're hoping to keep it free, depending on whether we can wrangle any sponsorship or organise supplies at the finish line. We'll confirm before any vibes are ruined or anyone has to commit to anything.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">What shoes should I wear?</div>
@@ -851,7 +926,7 @@
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-logo">Omahalf</div>
-  <div class="footer-copy">© 2025 Omahalf. Unofficial. Unsponsored. Unhinged.</div>
+  <div class="footer-copy">© 2026 Omahalf. Unofficial. Unsponsored. Unhinged.</div>
   <div class="footer-links">
     <a href="#about">About</a>
     <a href="#course">Course</a>
@@ -861,6 +936,33 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Countdown timer — Sunday 7 June 2026 8:00am NZT (UTC+12)
+  const raceDate = new Date('2026-06-07T08:00:00+12:00');
+  function updateCountdown() {
+    const now = new Date();
+    const diff = raceDate - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<span style="font-family:\'DM Mono\',monospace;font-size:0.9rem;letter-spacing:0.12em;color:var(--seafoam)">RACE DAY 🏃</span>';
+      return;
+    }
+    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Sticky nav
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
   // FAQ accordion
   document.querySelectorAll('.faq-q').forEach(q => {
     q.addEventListener('click', () => {
@@ -885,7 +987,7 @@
         headers: { 'Accept': 'application/json' }
       });
       if (response.ok) {
-        btn.textContent = '✓ See you out there!';
+        btn.textContent = "✓ We'll be in touch!";
         btn.style.background = '#1a3a4a';
         registerForm.reset();
       } else {
