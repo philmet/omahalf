@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Omahalf — Half Marathon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sand: #e8dcc8;
+      --driftwood: #b89a72;
+      --ocean: #1a3a4a;
+      --deep: #0d2030;
+      --seafoam: #5fa898;
+      --white: #f5f0e8;
+      --mist: #7a9aaa;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--deep);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 3rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 30%, rgba(95,168,152,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 20% 70%, rgba(26,58,74,0.8) 0%, transparent 70%),
+        linear-gradient(170deg, #0d2030 0%, #1a3a4a 40%, #0d2030 100%);
+    }
+
+    /* Animated wave lines */
+    .waves {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+    }
+    .wave {
+      position: absolute;
+      bottom: 0;
+      left: -5%;
+      width: 110%;
+      height: 100%;
+    }
+    .wave svg { width: 100%; height: 100%; }
+    .wave-1 { animation: waveMove 8s ease-in-out infinite; opacity: 0.15; }
+    .wave-2 { animation: waveMove 11s ease-in-out infinite reverse; opacity: 0.1; }
+    .wave-3 { animation: waveMove 14s ease-in-out infinite; opacity: 0.07; }
+    @keyframes waveMove {
+      0%, 100% { transform: translateX(0) scaleY(1); }
+      50% { transform: translateX(-3%) scaleY(1.05); }
+    }
+
+    /* Distance markers */
+    .distance-tag {
+      position: absolute;
+      top: 2.5rem;
+      right: 4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--mist);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    /* Navigation */
+    nav {
+      position: absolute;
+      top: 2.5rem;
+      left: 4rem;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--sand);
+      letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--mist);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--seafoam); }
+
+    /* Hero text */
+    .hero-content { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--seafoam);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 1s 0.2s both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem, 14vw, 13rem);
+      font-weight: 900;
+      line-height: 0.88;
+      color: var(--sand);
+      margin-bottom: 0.4rem;
+      animation: fadeUp 1s 0.4s both;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--seafoam);
+    }
+    .hero-subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      color: var(--mist);
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      animation: fadeUp 1s 0.6s both;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--seafoam);
+      color: var(--deep);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 1.1rem 2.2rem;
+      transition: background 0.3s, transform 0.2s;
+      animation: fadeUp 1s 0.8s both;
+    }
+    .hero-cta:hover { background: var(--driftwood); transform: translateY(-2px); }
+    .hero-cta .arrow { font-size: 1rem; transition: transform 0.2s; }
+    .hero-cta:hover .arrow { transform: translateX(4px); }
+
+    .hero-stat-row {
+      position: absolute;
+      bottom: 3rem;
+      right: 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: flex-end;
+      z-index: 2;
+      animation: fadeUp 1s 1s both;
+    }
+    .hero-stat {
+      text-align: right;
+    }
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--sand);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--mist);
+      text-transform: uppercase;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      color: var(--seafoam);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--sand);
+      margin-bottom: 2rem;
+    }
+    .section-title em { font-style: italic; color: var(--seafoam); }
+    .section-body {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--mist);
+      max-width: 580px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--ocean);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+      height: 420px;
+    }
+    .about-card {
+      position: absolute;
+      background: var(--deep);
+      border: 1px solid rgba(95,168,152,0.2);
+      padding: 2rem;
+    }
+    .about-card-main {
+      top: 0; left: 0;
+      width: 78%;
+      height: 75%;
+    }
+    .about-card-accent {
+      bottom: 0; right: 0;
+      width: 60%;
+      height: 55%;
+      background: rgba(95,168,152,0.08);
+      border-color: rgba(95,168,152,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-card-accent-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--seafoam);
+      opacity: 0.6;
+    }
+    .about-card-main p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--mist);
+      line-height: 1.8;
+    }
+    .about-card-main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--sand);
+      margin-bottom: 1rem;
+    }
+
+    /* ── COURSE INFO ── */
+    .course {
+      background: var(--deep);
+    }
+    .course-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .course-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      margin-top: 1rem;
+    }
+    .course-detail-item {
+      border-left: 2px solid rgba(95,168,152,0.3);
+      padding-left: 1.5rem;
+    }
+    .course-detail-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      color: var(--seafoam);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .course-detail-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--sand);
+    }
+    .course-detail-note {
+      font-size: 0.85rem;
+      color: var(--mist);
+      margin-top: 0.2rem;
+    }
+
+    /* Elevation profile placeholder */
+    .elevation-wrap {
+      background: rgba(26,58,74,0.5);
+      border: 1px solid rgba(95,168,152,0.15);
+      padding: 2.5rem;
+    }
+    .elevation-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: var(--mist);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .elevation-chart {
+      width: 100%;
+      height: 140px;
+    }
+    .elevation-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.8rem;
+    }
+    .elevation-labels span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--mist);
+      opacity: 0.6;
+    }
+
+    .course-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .course-feature {
+      background: rgba(26,58,74,0.4);
+      border: 1px solid rgba(95,168,152,0.12);
+      padding: 1.5rem;
+    }
+    .feature-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .feature-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--sand);
+      margin-bottom: 0.3rem;
+    }
+    .feature-desc {
+      font-size: 0.82rem;
+      color: var(--mist);
+      line-height: 1.5;
+    }
+
+    /* ── REGISTER ── */
+    .register {
+      background: var(--seafoam);
+      color: var(--deep);
+      text-align: center;
+      padding: 8rem 4rem;
+    }
+    .register .section-label { color: rgba(13,32,48,0.6); }
+    .register .section-title { color: var(--deep); max-width: 700px; margin: 0 auto 1.5rem; }
+    .register .section-body { color: rgba(13,32,48,0.7); margin: 0 auto 3rem; text-align: center; }
+    .register-form {
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(13,32,48,0.6);
+      text-align: left;
+    }
+    .form-input {
+      background: rgba(13,32,48,0.08);
+      border: 1.5px solid rgba(13,32,48,0.2);
+      color: var(--deep);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input::placeholder { color: rgba(13,32,48,0.35); }
+    .form-input:focus { border-color: var(--deep); }
+    .submit-btn {
+      background: var(--deep);
+      color: var(--sand);
+      border: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 1.2rem 2rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { background: var(--ocean); transform: translateY(-2px); }
+
+    /* ── FAQ ── */
+    .faq {
+      background: var(--ocean);
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item {
+      border-bottom: 1px solid rgba(95,168,152,0.15);
+      padding: 1.5rem 0;
+    }
+    .faq-q {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--sand);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .faq-q::after {
+      content: '+';
+      font-family: 'DM Mono', monospace;
+      font-size: 1.2rem;
+      color: var(--seafoam);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a {
+      font-size: 0.9rem;
+      color: var(--mist);
+      line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+    }
+    .faq-item.open .faq-a {
+      max-height: 200px;
+      padding-top: 0.8rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep);
+      border-top: 1px solid rgba(95,168,152,0.12);
+      padding: 3rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--sand);
+    }
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--mist);
+      opacity: 0.5;
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--mist);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--seafoam); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      section { padding: 5rem 2rem; }
+      nav { left: 2rem; top: 1.5rem; }
+      nav .nav-links { display: none; }
+      .hero { padding: 2rem; }
+      .hero-title { font-size: clamp(4rem, 18vw, 7rem); }
+      .hero-stat-row { display: none; }
+      .distance-tag { display: none; }
+      .about { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual { height: 280px; }
+      .course-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .course-features { grid-template-columns: 1fr; }
+      .faq { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="waves">
+    <div class="wave wave-1">
+      <svg viewBox="0 0 1440 280" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,140 C240,200 480,80 720,140 C960,200 1200,80 1440,140 L1440,280 L0,280 Z" fill="#5fa898"/>
+      </svg>
+    </div>
+    <div class="wave wave-2">
+      <svg viewBox="0 0 1440 280" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,160 C360,100 720,220 1080,160 C1260,130 1380,170 1440,160 L1440,280 L0,280 Z" fill="#1a3a4a"/>
+      </svg>
+    </div>
+    <div class="wave wave-3">
+      <svg viewBox="0 0 1440 280" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,180 C300,120 600,240 900,180 C1100,140 1280,190 1440,180 L1440,280 L0,280 Z" fill="#0d2030"/>
+      </svg>
+    </div>
+  </div>
+
+  <nav>
+    <span class="nav-logo">Omahalf</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#course">Course</a></li>
+      <li><a href="#register">Register</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <div class="distance-tag">21.1 KM — OMAHA BEACH, NZ</div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Omaha Beach → Matakana Village · New Zealand · 2025</p>
+    <h1 class="hero-title">Oma<em>half</em></h1>
+    <p class="hero-subtitle">An unofficial half marathon. Some friends. A really nice route.</p>
+    <a href="#register" class="hero-cta">I'm in <span class="arrow">→</span></a>
+  </div>
+
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <div class="hero-stat-num">21.1</div>
+      <div class="hero-stat-label">Kilometres</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">101m</div>
+      <div class="hero-stat-label">Elevation Gain</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">~2 hrs</div>
+      <div class="hero-stat-label">Est. Finish Time</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="about" id="about">
+  <div class="about-text">
+    <p class="section-label">What is this</p>
+    <h2 class="section-title">Basically just a <em>group run</em> with a fancy name</h2>
+    <p class="section-body">A few friends looked at a map, drew a half marathon route from Omaha Beach to Matakana Village, and thought: other people might want to do this too. So here we are. No timing chips, no sponsorship tent, no finisher's banana (well, maybe a banana).</p>
+    <p class="section-body" style="margin-top: 1rem;">The route is genuinely beautiful though — coast to Point Wells, then back through the Matakana Cycle Trail. If you're going to run 21 km, this is a pretty good excuse.</p>
+  </div>
+  <div class="about-visual">
+    <div class="about-card about-card-main">
+      <p class="about-card-main-title">The general plan</p>
+      <p>Start at Omaha Beach (shoes on)<br/>Run north to Point Wells<br/>Matakana Cycle Trail back<br/>Finish in Matakana Village<br/>Eat something. You've earned it.</p>
+    </div>
+    <div class="about-card about-card-accent">
+      <span class="about-card-accent-text">NZ</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── COURSE ── -->
+<section class="course" id="course">
+  <div class="course-inner">
+    <div>
+      <p class="section-label">The Course</p>
+      <h2 class="section-title">Flat, flat, flat — then <em>one hill</em></h2>
+      <div class="course-details">
+        <div class="course-detail-item">
+          <div class="course-detail-label">Start</div>
+          <div class="course-detail-value">Omaha Beach</div>
+          <div class="course-detail-note">Meet on the sand. Try not to get your shoes wet.</div>
+        </div>
+        <div class="course-detail-item">
+          <div class="course-detail-label">Finish</div>
+          <div class="course-detail-value">Matakana Village</div>
+          <div class="course-detail-note">Actual cafes and cold drinks. You will deserve them.</div>
+        </div>
+        <div class="course-detail-item">
+          <div class="course-detail-label">Distance</div>
+          <div class="course-detail-value">21.14 km</div>
+          <div class="course-detail-note">101 m elevation gain · 87 m loss · one annoying hill at 17 km</div>
+        </div>
+        <div class="course-detail-item">
+          <div class="course-detail-label">Terrain</div>
+          <div class="course-detail-value">Mixed</div>
+          <div class="course-detail-note">64% sealed road · 35% Matakana Cycle Trail dirt</div>
+        </div>
+        <div class="course-detail-item">
+          <div class="course-detail-label">Aid Stations</div>
+          <div class="course-detail-value">Every 5 km</div>
+          <div class="course-detail-note">Probably. We're still figuring out the logistics.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="elevation-wrap">
+        <div class="elevation-title">Elevation Profile — 101 m gain · mostly flat with one climb</div>
+        <svg class="elevation-chart" viewBox="0 0 500 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="elev" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#5fa898" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#5fa898" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <!-- grid lines -->
+          <line x1="0" y1="20" x2="500" y2="20" stroke="rgba(95,168,152,0.1)" stroke-width="1"/>
+          <line x1="0" y1="55" x2="500" y2="55" stroke="rgba(95,168,152,0.1)" stroke-width="1"/>
+          <line x1="0" y1="90" x2="500" y2="90" stroke="rgba(95,168,152,0.1)" stroke-width="1"/>
+          <!-- elevation labels -->
+          <text x="4" y="18" fill="rgba(122,154,170,0.5)" font-size="8" font-family="monospace">60m</text>
+          <text x="4" y="53" fill="rgba(122,154,170,0.5)" font-size="8" font-family="monospace">30m</text>
+          <text x="4" y="88" fill="rgba(122,154,170,0.5)" font-size="8" font-family="monospace">0m</text>
+          <!-- Real elevation shape: flat 0-12km, gentle undulation, sharp hill 16-18km (~60m peak), back down, small bumps to finish -->
+          <path d="M0,118 L20,116 C50,115 80,114 110,113 C140,112 160,111 180,112 C200,113 215,115 230,114 C250,113 270,113 290,112 C310,111 320,110 330,109 C340,107 350,100 360,82 C368,65 373,30 380,22 C387,30 392,55 400,78 C407,95 415,108 430,112 C445,115 455,110 465,108 C475,106 488,109 500,110 L500,130 L0,130 Z" fill="url(#elev)"/>
+          <path d="M0,118 L20,116 C50,115 80,114 110,113 C140,112 160,111 180,112 C200,113 215,115 230,114 C250,113 270,113 290,112 C310,111 320,110 330,109 C340,107 350,100 360,82 C368,65 373,30 380,22 C387,30 392,55 400,78 C407,95 415,108 430,112 C445,115 455,110 465,108 C475,106 488,109 500,110" fill="none" stroke="#5fa898" stroke-width="2.5"/>
+          <!-- Hill annotation -->
+          <line x1="380" y1="22" x2="380" y2="130" stroke="rgba(95,168,152,0.25)" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="355" y="13" fill="rgba(95,168,152,0.7)" font-size="7.5" font-family="monospace">~17km</text>
+        </svg>
+        <div class="elevation-labels">
+          <span>0 km</span><span>5 km</span><span>10 km</span><span>15 km</span><span>21.1 km</span>
+        </div>
+      </div>
+      <div class="course-features">
+        <div class="course-feature">
+          <div class="feature-icon">🌊</div>
+          <div class="feature-title">Beach Start</div>
+          <div class="feature-desc">Omaha Beach to Point Wells along the coast. Genuinely lovely.</div>
+        </div>
+        <div class="course-feature">
+          <div class="feature-icon">🚵</div>
+          <div class="feature-title">Cycle Trail</div>
+          <div class="feature-desc">The Matakana Cycle Trail is meant for bikes. We're running it anyway.</div>
+        </div>
+        <div class="course-feature">
+          <div class="feature-icon">⛰️</div>
+          <div class="feature-title">That Hill</div>
+          <div class="feature-desc">Sharp climb at 17 km. We know. Sorry. It ends, we promise.</div>
+        </div>
+        <div class="course-feature">
+          <div class="feature-icon">🍺</div>
+          <div class="feature-title">Village Finish</div>
+          <div class="feature-desc">Matakana has good food and wine. That's kind of the whole point.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REGISTER ── -->
+<section class="register" id="register">
+  <p class="section-label">Come along</p>
+  <h2 class="section-title">Put your name down for <em>Omahalf</em></h2>
+  <p class="section-body">No entry fee, no race bib, no timing chip. Just let us know you're coming so we have a rough headcount. The more the merrier — seriously, bring friends.</p>
+  <div class="register-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">First Name</label>
+        <input class="form-input" type="text" placeholder="Jane"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Last Name</label>
+        <input class="form-input" type="text" placeholder="Smith"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input class="form-input" type="email" placeholder="jane@example.com"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Anything we should know?</label>
+      <input class="form-input" type="text" placeholder="e.g. I'm bringing my dog, I'll be slow, etc."/>
+    </div>
+    <button class="submit-btn" onclick="handleRegister(event)">Count me in →</button>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq" id="faq">
+  <div>
+    <p class="section-label">Reasonable questions</p>
+    <h2 class="section-title">Yes, it's really <em>free</em></h2>
+    <p class="section-body">Still unsure? Email us at hello@omahalf.nz and we'll try to help.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">When is it?</div>
+      <div class="faq-a">We're figuring that out. Sign up and we'll email you when the date's locked in. Targeting a weekend morning in late summer or early autumn 2025 — something cool enough to run 21 km in.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Where does it start and finish?</div>
+      <div class="faq-a">Starts at Omaha Beach, finishes in Matakana Village. They're about 9 km apart by road so you'll need to sort your own way back to your car — carpooling recommended, or park in Matakana and get a ride to the start.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there actually an entry fee?</div>
+      <div class="faq-a">Nope. This isn't a real race. There's no timing, no medals, no chip, no official anything. Just let us know you're coming so we have a rough idea of numbers.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What shoes should I wear?</div>
+      <div class="faq-a">Road shoes are fine. About a third of the course is the Matakana Cycle Trail (compacted dirt) but nothing gnarly. If you have trail shoes, great. If not, don't stress.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I have to run the whole thing?</div>
+      <div class="faq-a">Absolutely not. Walk, run, jog, shuffle. There's no cut-off, no one's timing you, and nobody is watching. The only rule is that you get yourself to Matakana eventually.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I bring my dog?</div>
+      <div class="faq-a">Honestly, yes — but check the trail rules for dogs off-lead. Probably keep them on a lead for the road sections. A dog running a half marathon is very on-brand for this event.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">Omahalf</div>
+  <div class="footer-copy">© 2025 Omahalf. Unofficial. Unsponsored. Unhinged.</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#course">Course</a>
+    <a href="#register">Register</a>
+    <a href="/cdn-cgi/l/email-protection#076f626b6b6847686a666f666b6129697d">Contact</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Register form
+  function handleRegister(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = "✓ See you out there!";
+    btn.style.background = '#1a3a4a';
+    btn.disabled = true;
+  }
+
+  // Scroll fade-in for sections
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
