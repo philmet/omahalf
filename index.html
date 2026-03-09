@@ -257,7 +257,7 @@
     .about-card-accent {
       bottom: 0; right: 0;
       width: 60%;
-      height: 55%;
+      height: 40%;
       background: rgba(95,168,152,0.08);
       border-color: rgba(95,168,152,0.3);
       display: flex;
@@ -514,7 +514,71 @@
     }
     .footer-links a:hover { color: var(--seafoam); }
 
-    /* ── RESPONSIVE ── */
+    /* ── ROUTE MAP ── */
+    .routemap {
+      background: var(--deep);
+      padding: 0 0 7rem 0;
+    }
+    .routemap-inner {
+      padding: 0 4rem;
+    }
+    .routemap-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 4rem 4rem 2rem;
+    }
+    .routemap-header-text {}
+    .routemap-strava-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--seafoam);
+      text-decoration: none;
+      border: 1px solid rgba(95,168,152,0.3);
+      padding: 0.7rem 1.2rem;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+      margin-bottom: 0.4rem;
+    }
+    .routemap-strava-link:hover {
+      background: rgba(95,168,152,0.1);
+    }
+    .routemap-img-wrap {
+      position: relative;
+      border: 1px solid rgba(95,168,152,0.12);
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .routemap-img-wrap img {
+      width: 100%;
+      display: block;
+      filter: saturate(0.85);
+      transition: filter 0.3s;
+    }
+    .routemap-img-wrap:hover img { filter: saturate(1); }
+    .routemap-caption {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0 0;
+    }
+    .routemap-caption span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--mist);
+      opacity: 0.5;
+      text-transform: uppercase;
+    }
+    @media (max-width: 900px) {
+      .routemap-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 3rem 2rem 1.5rem; }
+      .routemap-inner { padding: 0 2rem; }
+      .routemap { padding-bottom: 5rem; }
+    }
     @media (max-width: 900px) {
       section { padding: 5rem 2rem; }
       nav { left: 2rem; top: 1.5rem; }
@@ -560,17 +624,18 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#course">Course</a></li>
+      <li><a href="#route">Route Map</a></li>
       <li><a href="#register">Register</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
   </nav>
 
-  <div class="distance-tag">21.1 KM — OMAHA BEACH, NZ</div>
+  <div class="distance-tag">21.1 KM — SUNDAY 7 JUNE 2025</div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">Omaha Beach → Matakana Village · New Zealand · 2025</p>
+    <p class="hero-eyebrow">Sunday 7 June 2025 · Omaha Beach → Matakana Village · New Zealand</p>
     <h1 class="hero-title">Oma<em>half</em></h1>
-    <p class="hero-subtitle">An unofficial half marathon. Some friends. A really nice route.</p>
+    <p class="hero-subtitle">An unofficial half marathon.</p>
     <a href="#register" class="hero-cta">I'm in <span class="arrow">→</span></a>
   </div>
 
@@ -584,8 +649,8 @@
       <div class="hero-stat-label">Elevation Gain</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">~2 hrs</div>
-      <div class="hero-stat-label">Est. Finish Time</div>
+      <div class="hero-stat-num">100% relaxed</div>
+      <div class="hero-stat-label">Go your own pace</div>
     </div>
   </div>
 </section>
@@ -594,17 +659,17 @@
 <section class="about" id="about">
   <div class="about-text">
     <p class="section-label">What is this</p>
-    <h2 class="section-title">Basically just a <em>group run</em> with a fancy name</h2>
-    <p class="section-body">A few friends looked at a map, drew a half marathon route from Omaha Beach to Matakana Village, and thought: other people might want to do this too. So here we are. No timing chips, no sponsorship tent, no finisher's banana (well, maybe a banana).</p>
-    <p class="section-body" style="margin-top: 1rem;">The route is genuinely beautiful though — coast to Point Wells, then back through the Matakana Cycle Trail. If you're going to run 21 km, this is a pretty good excuse.</p>
+    <h2 class="section-title">Basically just a <em>social run</em> with a fancy name</h2>
+    <p class="section-body">A few friends looked at the 2026 calendar and couldn't find a run in June. So, we're organising our own. Turns out it is a half marathon from Omaha Beach to Matakana Village via Point Wells. Then we thought: other people might want to do this too. So here we are. No timing chips, no pre-race bib pick-up, no finisher's banana (well, maybe there will be bananas).</p>
+    <p class="section-body" style="margin-top: 1rem;">The route is genuinely beautiful though — Omaha to Point Wells, then through the Matakana Cycle Trail to the village. If you're going to run 21 km in 2026, this is a pretty good way to do it.</p>
   </div>
   <div class="about-visual">
     <div class="about-card about-card-main">
       <p class="about-card-main-title">The general plan</p>
-      <p>Start at Omaha Beach (shoes on)<br/>Run north to Point Wells<br/>Matakana Cycle Trail back<br/>Finish in Matakana Village<br/>Eat something. You've earned it.</p>
+      <p>Start north end Omaha Beach (shoes on)<br/>Run to Omaha Beach south end<br/>Loop back &amp; west/north to Point Wells<br/>Then run the Matakana Cycle Trail<br/>Finish in Matakana Village<br/>Eat something. Drink something.<br/>You've earned it.</p>
     </div>
     <div class="about-card about-card-accent">
-      <span class="about-card-accent-text">NZ</span>
+      <span class="about-card-accent-text">21.1</span>
     </div>
   </div>
 </section>
@@ -618,13 +683,13 @@
       <div class="course-details">
         <div class="course-detail-item">
           <div class="course-detail-label">Start</div>
-          <div class="course-detail-value">Omaha Beach</div>
-          <div class="course-detail-note">Meet on the sand. Try not to get your shoes wet.</div>
+          <div class="course-detail-value">Omaha Drive - North End</div>
+          <div class="course-detail-note">Quiet and residential.</div>
         </div>
         <div class="course-detail-item">
           <div class="course-detail-label">Finish</div>
           <div class="course-detail-value">Matakana Village</div>
-          <div class="course-detail-note">Actual cafes and cold drinks. You will deserve them.</div>
+          <div class="course-detail-note">At the tennis courts.</div>
         </div>
         <div class="course-detail-item">
           <div class="course-detail-label">Distance</div>
@@ -634,12 +699,12 @@
         <div class="course-detail-item">
           <div class="course-detail-label">Terrain</div>
           <div class="course-detail-value">Mixed</div>
-          <div class="course-detail-note">64% sealed road · 35% Matakana Cycle Trail dirt</div>
+          <div class="course-detail-note">64% sealed road · 35% gravel cycling trail</div>
         </div>
         <div class="course-detail-item">
-          <div class="course-detail-label">Aid Stations</div>
-          <div class="course-detail-value">Every 5 km</div>
-          <div class="course-detail-note">Probably. We're still figuring out the logistics.</div>
+          <div class="course-detail-label">Water Stations</div>
+          <div class="course-detail-value">TBD</div>
+          <div class="course-detail-note">Would be helpful. But we're still figuring out the logistics.</div>
         </div>
       </div>
     </div>
@@ -675,25 +740,47 @@
       <div class="course-features">
         <div class="course-feature">
           <div class="feature-icon">🌊</div>
-          <div class="feature-title">Beach Start</div>
-          <div class="feature-desc">Omaha Beach to Point Wells along the coast. Genuinely lovely.</div>
+          <div class="feature-title">Start near the coast</div>
+          <div class="feature-desc">Omaha to Matakana. Genuinely lovely.</div>
         </div>
         <div class="course-feature">
           <div class="feature-icon">🚵</div>
           <div class="feature-title">Cycle Trail</div>
-          <div class="feature-desc">The Matakana Cycle Trail is meant for bikes. We're running it anyway.</div>
+          <div class="feature-desc">The Matakana Cycle Trail is mostly for bikes. But it's also great to run.</div>
         </div>
         <div class="course-feature">
           <div class="feature-icon">⛰️</div>
-          <div class="feature-title">That Hill</div>
+          <div class="feature-title">The Hill</div>
           <div class="feature-desc">Sharp climb at 17 km. We know. Sorry. It ends, we promise.</div>
         </div>
         <div class="course-feature">
           <div class="feature-icon">🍺</div>
           <div class="feature-title">Village Finish</div>
-          <div class="feature-desc">Matakana has good food and wine. That's kind of the whole point.</div>
+          <div class="feature-desc">Matakana has good food and wine. That's kind of the whole point of this.</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROUTE MAP ── -->
+<section class="routemap" id="route">
+  <div class="routemap-header">
+    <div class="routemap-header-text">
+      <p class="section-label">The Route</p>
+      <h2 class="section-title" style="margin-bottom:0">Omaha Beach <em>→</em> Matakana</h2>
+    </div>
+    <a class="routemap-strava-link" href="https://www.strava.com/routes/3451473672417096432" target="_blank" rel="noopener">
+      View on Strava ↗
+    </a>
+  </div>
+  <div class="routemap-inner">
+    <div class="routemap-img-wrap">
+      <img src="route-map.png" alt="Omahalf route map — Omaha Beach to Matakana Village via Point Wells and the Matakana Cycle Trail"/>
+    </div>
+    <div class="routemap-caption">
+      <span>Omaha Beach → Point Wells → Matakana Cycle Trail → Matakana Village</span>
+      <span>21.14 km · 101 m gain</span>
     </div>
   </div>
 </section>
@@ -703,27 +790,27 @@
   <p class="section-label">Come along</p>
   <h2 class="section-title">Put your name down for <em>Omahalf</em></h2>
   <p class="section-body">No entry fee, no race bib, no timing chip. Just let us know you're coming so we have a rough headcount. The more the merrier — seriously, bring friends.</p>
-  <div class="register-form">
+  <form class="register-form" action="https://formspree.io/f/xkoqoogd" method="POST" id="register-form">
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">First Name</label>
-        <input class="form-input" type="text" placeholder="Jane"/>
+        <label class="form-label" for="first-name">First Name</label>
+        <input class="form-input" type="text" id="first-name" name="first_name" placeholder="Jane" required/>
       </div>
       <div class="form-group">
-        <label class="form-label">Last Name</label>
-        <input class="form-input" type="text" placeholder="Smith"/>
+        <label class="form-label" for="last-name">Last Name</label>
+        <input class="form-input" type="text" id="last-name" name="last_name" placeholder="Smith" required/>
       </div>
     </div>
     <div class="form-group">
-      <label class="form-label">Email</label>
-      <input class="form-input" type="email" placeholder="jane@example.com"/>
+      <label class="form-label" for="email">Email</label>
+      <input class="form-input" type="email" id="email" name="email" placeholder="jane@example.com" required/>
     </div>
     <div class="form-group">
-      <label class="form-label">Anything we should know?</label>
-      <input class="form-input" type="text" placeholder="e.g. I'm bringing my dog, I'll be slow, etc."/>
+      <label class="form-label" for="message">Anything we should know?</label>
+      <input class="form-input" type="text" id="message" name="message" placeholder="e.g. I'm bringing my dog, I'll be slow, etc."/>
     </div>
-    <button class="submit-btn" onclick="handleRegister(event)">Count me in →</button>
-  </div>
+    <button type="submit" class="submit-btn">Count me in →</button>
+  </form>
 </section>
 
 <!-- ── FAQ ── -->
@@ -731,12 +818,12 @@
   <div>
     <p class="section-label">Reasonable questions</p>
     <h2 class="section-title">Yes, it's really <em>free</em></h2>
-    <p class="section-body">Still unsure? Email us at hello@omahalf.nz and we'll try to help.</p>
+    <p class="section-body">Still unsure? Email us at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92faf7fefefdd2fdfff3faf3fef4bcfce8">[email&#160;protected]</a> and we'll try to help.</p>
   </div>
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q">When is it?</div>
-      <div class="faq-a">We're figuring that out. Sign up and we'll email you when the date's locked in. Targeting a weekend morning in late summer or early autumn 2025 — something cool enough to run 21 km in.</div>
+      <div class="faq-a">Sunday 7 June 2025. Morning start — exact time TBC, but we'll let everyone know once they've signed up. Fingers crossed for good weather.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Where does it start and finish?</div>
@@ -773,7 +860,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // FAQ accordion
   document.querySelectorAll('.faq-q').forEach(q => {
     q.addEventListener('click', () => {
@@ -784,17 +871,32 @@
     });
   });
 
-  // Register form
-  function handleRegister(e) {
+  // Register form — Formspree
+  const registerForm = document.getElementById('register-form');
+  registerForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const btn = e.target;
-    btn.textContent = "✓ See you out there!";
-    btn.style.background = '#1a3a4a';
+    const btn = registerForm.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending...';
     btn.disabled = true;
-  }
-
-  // Scroll fade-in for sections
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
+    try {
+      const response = await fetch(registerForm.action, {
+        method: 'POST',
+        body: new FormData(registerForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        btn.textContent = '✓ See you out there!';
+        btn.style.background = '#1a3a4a';
+        registerForm.reset();
+      } else {
+        btn.textContent = 'Something went wrong — try again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Something went wrong — try again';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
