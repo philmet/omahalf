@@ -1,5 +1,7 @@
 # Omahalf
 
+https://philmet.github.io/omahalf
+
 Website for Omahalf — an unofficial half marathon run by some friends starting at Omaha Beach, New Zealand, and finishing in Matakana Village.
 
 ## What is this
