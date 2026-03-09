@@ -22,6 +22,8 @@ A single-page static website (`index.html`) with no dependencies, no build step,
 open index.html
 ```
 
+Formspree for registration management.
+
 That's it.
 
 ## Deploying
